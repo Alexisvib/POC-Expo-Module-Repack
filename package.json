@@ -1,6 +1,6 @@
 {
   "name": "poc-expo-modules",
-  "main": "index.ts",
+  "main": "apps/shell/index.ts",
   "version": "1.0.0",
   "scripts": {
     "start": "expo start",
