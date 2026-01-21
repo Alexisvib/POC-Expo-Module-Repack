@@ -21,7 +21,7 @@ const UserContext = createContext<UserContextValue | null>(null);
 
 export function UserProvider({ children }: { children: React.ReactNode }) {
   const [profile, setProfile] = useState<UserProfile>({
-    modulesAvailable: ["invoicing", "banking", "accounting"],
+    modulesAvailable: ["banking"],
   });
 
   const toggleProduct = useCallback((product: ShineModule) => {

@@ -3,16 +3,17 @@ import * as React from "react";
 
 import { UserProvider } from "@shell/context/UserContext";
 import ShellNavigator from "@shell/ShellNavigator";
+import { navigationRef } from "./navigation/navigationRef";
 
 // Import modules to register them
-import "@modules/invoicing";
-import "@modules/banking";
 import "@modules/accounting";
+import "@modules/banking";
+import "@modules/invoicing";
 
 export default function App() {
   return (
     <UserProvider>
-      <NavigationContainer>
+      <NavigationContainer ref={navigationRef}>
         <ShellNavigator />
       </NavigationContainer>
     </UserProvider>

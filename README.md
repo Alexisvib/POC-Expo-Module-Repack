@@ -118,3 +118,5 @@ mais :
   Tu peux activer/désactiver des produits à chaud
 
 On ajoute donc un init lorsqu'un module est monté et un dispose quand il est démonté si besoin de reset du store, clean listener, ...
+
+-> Step suivante si on est sur un module et qu'il est désactivé => redirect sur home

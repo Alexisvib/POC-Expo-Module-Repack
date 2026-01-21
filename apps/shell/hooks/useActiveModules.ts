@@ -1,5 +1,6 @@
 import { useUser } from "@shell/context/UserContext";
 import { ModuleDefinition } from "@shell/models/Module";
+import { enforceNavigationAccess } from "@shell/navigation/guards";
 import { getModules } from "@shell/registry/ModuleRegistry";
 import { useEffect, useRef } from "react";
 
@@ -24,9 +25,10 @@ const useActiveModules = (): ModuleDefinition[] => {
     added.forEach((mod) => mod.init?.());
     removed.forEach((mod) => mod.dispose?.());
 
+    enforceNavigationAccess(activeModules);
+
     previousModulesRef.current = activeModules;
   }, [activeModules]);
-
   return activeModules;
 };
 
