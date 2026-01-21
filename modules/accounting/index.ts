@@ -12,6 +12,12 @@ const AccountingModule = (): ModuleDefinition => {
         component: AccountingScreen,
       },
     ],
+    init() {
+      console.log("[Invoicing] init");
+    },
+    dispose() {
+      console.log("[Invoicing] dispose");
+    },
   };
 };
 

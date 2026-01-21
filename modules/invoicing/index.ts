@@ -12,6 +12,12 @@ const InvoicingModule = (): ModuleDefinition => {
         component: InvoicingScreen,
       },
     ],
+    init() {
+      console.log("[Invoicing] init");
+    },
+    dispose() {
+      console.log("[Invoicing] dispose");
+    },
   };
 };
 

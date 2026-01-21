@@ -9,4 +9,6 @@ export type ModuleDefinition = {
   id: string;
   label: string;
   screens: ModuleScreen[];
+  init?: () => void;
+  dispose?: () => void;
 };

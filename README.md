@@ -89,3 +89,32 @@ This POC validates that:
 - a modular **One App** architecture is viable on mobile
 
 ---
+
+# Suivi a résumer en anglais :
+
+-> En gros on créer 3 modules : accounting, invoicing et banking (represenant ce qu'on veut comme one app vision)
+
+-> Au niveau du shell on importe les modules via un registry :
+
+```js
+import "@modules/invoicing";
+import "@modules/banking";
+import "@modules/accounting";
+```
+
+-> Via un hook et un context on dit quel module à le droit de voir le user.
+
+-> A cette étape le soucis
+un module disparaît de la navigation
+mais :
+
+- son state peut rester vivant
+- ses side-effects peuvent rester actifs
+- ses listeners peuvent rester branchés
+
+* Step Init / Tear Down modules
+  Les modules sont vraiment indépendants
+  Le Shell contrôle leur cycle de vie
+  Tu peux activer/désactiver des produits à chaud
+
+On ajoute donc un init lorsqu'un module est monté et un dispose quand il est démonté si besoin de reset du store, clean listener, ...

@@ -12,6 +12,12 @@ const BankingModule = (): ModuleDefinition => {
         component: BankingScreen,
       },
     ],
+    init() {
+      console.log("[Banking] init");
+    },
+    dispose() {
+      console.log("[Banking] dispose");
+    },
   };
 };
 
