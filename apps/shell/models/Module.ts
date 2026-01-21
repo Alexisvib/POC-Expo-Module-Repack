@@ -1,10 +1,12 @@
 import { RootStackParamList } from "@shell/navigation/model";
 
+export type ModuleScreen = {
+  name: keyof RootStackParamList;
+  component: React.ComponentType<any>;
+};
+
 export type ModuleDefinition = {
-  name: string;
+  id: string;
   label: string;
-  screens: {
-    name: keyof RootStackParamList;
-    component: React.ComponentType<any>;
-  }[];
+  screens: ModuleScreen[];
 };

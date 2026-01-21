@@ -1,9 +1,10 @@
 import { ModuleDefinition } from "@shell/models/Module";
+import { registerModule } from "@shell/registry/ModuleRegistry";
 import { AccountingScreen } from "./AccountingScreen";
 
-export function registerAccountingModule(): ModuleDefinition {
+const AccountingModule = (): ModuleDefinition => {
   return {
-    name: "accounting",
+    id: "accounting",
     label: "Accounting",
     screens: [
       {
@@ -12,4 +13,6 @@ export function registerAccountingModule(): ModuleDefinition {
       },
     ],
   };
-}
+};
+
+registerModule("accounting", AccountingModule);

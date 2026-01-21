@@ -35,7 +35,7 @@ const HomeScreen = () => {
       <View style={{ marginTop: 24 }}>
         {activeModules.map((mod) => (
           <Text
-            key={mod.name}
+            key={mod.id}
             style={{ marginTop: 12, color: "blue" }}
             onPress={() => navigation.navigate(mod.screens[0].name)}
           >
