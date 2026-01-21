@@ -2,33 +2,44 @@ import { useUser } from "@shell/context/UserContext";
 import { ModuleDefinition } from "@shell/models/Module";
 import { enforceNavigationAccess } from "@shell/navigation/guards";
 import { getModules } from "@shell/registry/ModuleRegistry";
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 
 const useActiveModules = (): ModuleDefinition[] => {
   const { profile } = useUser();
 
-  const activeModules = getModules(profile.modulesAvailable);
-
+  const [activeModules, setActiveModules] = useState<ModuleDefinition[]>([]);
   const previousModulesRef = useRef<ModuleDefinition[]>([]);
 
   useEffect(() => {
-    const previous = previousModulesRef.current;
+    let cancelled = false;
 
-    const added = activeModules.filter(
-      (mod) => !previous.some((p) => p.id === mod.id),
-    );
+    async function loadModules() {
+      const modules = await getModules(profile.modulesAvailable);
+      if (cancelled) return;
 
-    const removed = previous.filter(
-      (mod) => !activeModules.some((a) => a.id === mod.id),
-    );
+      const previous = previousModulesRef.current;
 
-    added.forEach((mod) => mod.init?.());
-    removed.forEach((mod) => mod.dispose?.());
+      const added = modules.filter((m) => !previous.some((p) => p.id === m.id));
+      const removed = previous.filter(
+        (m) => !modules.some((a) => a.id === m.id),
+      );
 
-    enforceNavigationAccess(activeModules);
+      added.forEach((m) => m.init?.());
+      removed.forEach((m) => m.dispose?.());
 
-    previousModulesRef.current = activeModules;
-  }, [activeModules]);
+      enforceNavigationAccess(modules);
+
+      previousModulesRef.current = modules;
+      setActiveModules(modules);
+    }
+
+    loadModules();
+
+    return () => {
+      cancelled = true;
+    };
+  }, [profile.modulesAvailable]);
+
   return activeModules;
 };
 

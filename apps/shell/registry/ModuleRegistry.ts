@@ -1,19 +1,23 @@
-import { ModuleDefinition } from "@shell/models/Module";
+import type { ModuleDefinition } from "@shell/models/Module";
 
-type ModuleFactory = () => ModuleDefinition;
+type ModuleLoader = () => Promise<{ default: () => ModuleDefinition }>;
 
-const registry: Record<string, ModuleFactory> = {};
+const registry: Record<string, ModuleLoader> = {};
 
-export function registerModule(id: string, factory: ModuleFactory) {
-  registry[id] = factory;
+export function registerModule(id: string, loader: ModuleLoader) {
+  registry[id] = loader;
 }
 
-export function getModule(id: string): ModuleDefinition | null {
-  return registry[id]?.() ?? null;
-}
+export async function getModules(ids: string[]): Promise<ModuleDefinition[]> {
+  const modules = await Promise.all(
+    ids.map(async (id) => {
+      const loader = registry[id];
+      if (!loader) return null;
 
-export function getModules(ids: string[]): ModuleDefinition[] {
-  return ids
-    .map((id) => registry[id]?.())
-    .filter(Boolean) as ModuleDefinition[];
+      const mod = await loader();
+      return mod.default();
+    }),
+  );
+
+  return modules.filter(Boolean) as ModuleDefinition[];
 }

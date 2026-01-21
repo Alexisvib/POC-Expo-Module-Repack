@@ -120,3 +120,25 @@ mais :
 On ajoute donc un init lorsqu'un module est monté et un dispose quand il est démonté si besoin de reset du store, clean listener, ...
 
 -> Step suivante si on est sur un module et qu'il est désactivé => redirect sur home
+
+-> Step Lazy loading / Re.Pack prep.
+Avant cette étape le factory est importé Statiquement il faut passer à factory = () => import("…") puis build du module
+
+```bash
+apps/shell/
+  registry/
+    ModuleRegistry.ts
+modules/
+  invoicing/
+    module.ts
+```
+
+AT this step we introduce lazy loading
+
+In a folder name bootstrap (code executed only once at the beginning of the app)
+
+```js
+registerModule("invoicing", () => import("@modules/invoicing"));
+registerModule("banking", () => import("@modules/banking"));
+registerModule("accounting", () => import("@modules/accounting"));
+```

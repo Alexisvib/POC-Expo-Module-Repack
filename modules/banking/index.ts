@@ -1,5 +1,4 @@
 import { ModuleDefinition } from "@shell/models/Module";
-import { registerModule } from "@shell/registry/ModuleRegistry";
 import { BankingScreen } from "./BankingScreen";
 
 const BankingModule = (): ModuleDefinition => {
@@ -21,4 +20,4 @@ const BankingModule = (): ModuleDefinition => {
   };
 };
 
-registerModule("banking", BankingModule);
+export default BankingModule;

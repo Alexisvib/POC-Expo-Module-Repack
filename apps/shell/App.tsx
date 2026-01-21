@@ -6,9 +6,7 @@ import ShellNavigator from "@shell/ShellNavigator";
 import { navigationRef } from "./navigation/navigationRef";
 
 // Import modules to register them
-import "@modules/accounting";
-import "@modules/banking";
-import "@modules/invoicing";
+import "@shell/bootstrap/registerModules";
 
 export default function App() {
   return (

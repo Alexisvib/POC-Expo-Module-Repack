@@ -1,5 +1,4 @@
 import { ModuleDefinition } from "@shell/models/Module";
-import { registerModule } from "@shell/registry/ModuleRegistry";
 import { AccountingScreen } from "./AccountingScreen";
 
 const AccountingModule = (): ModuleDefinition => {
@@ -21,4 +20,4 @@ const AccountingModule = (): ModuleDefinition => {
   };
 };
 
-registerModule("accounting", AccountingModule);
+export default AccountingModule;

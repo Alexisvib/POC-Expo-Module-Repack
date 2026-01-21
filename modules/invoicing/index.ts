@@ -1,5 +1,4 @@
 import { ModuleDefinition } from "@shell/models/Module";
-import { registerModule } from "@shell/registry/ModuleRegistry";
 import { InvoicingScreen } from "./InvoicingScreen";
 
 const InvoicingModule = (): ModuleDefinition => {
@@ -21,4 +20,4 @@ const InvoicingModule = (): ModuleDefinition => {
   };
 };
 
-registerModule("invoicing", InvoicingModule);
+export default InvoicingModule;
